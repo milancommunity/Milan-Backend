@@ -25,7 +25,7 @@
     "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
     "js-yaml": "^4.1.0",
-    "jsonwebtoken": "^9.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
