@@ -29,6 +29,46 @@ directory.
 
 You must create a `.env` file similar to **[.env.example](../.env.example)** file, remember that if you are using your own database the data might vary.
 
+## Setting up Google Client ID and Client Secret for `.env`
+
+To set up the Google Client ID and Client Secret for your application, follow these steps:
+
+1. **Project Creation:**
+   - Go to the [Google Developers Console](https://console.developers.google.com/apis/).
+   - Create a new project by clicking on the project dropdown.
+   
+   ![image](https://github.com/MilanCommunity/Milan-Backend/assets/98630752/94601cda-237d-4aed-acbf-171fd3cc3f3f)
+
+2. **Enable API Services:**
+   - Click on "Enabled API services" and select your project.
+   
+![image](https://github.com/MilanCommunity/Milan-Backend/assets/98630752/57258b52-9f02-40e1-92a0-2ffffde8b156)
+
+3. **Create Credentials:**
+   - Navigate to the "Credentials" section.
+   - Click on "Create credentials" and choose "OAuth client ID."
+
+![image](https://github.com/MilanCommunity/Milan-Backend/assets/98630752/f11f4180-0ea1-46f3-9c4c-f8fd72cc8ee6)
+
+4. **Configure OAuth Client:**
+   - Fill out the form:
+     - Choose "Web application" as the application type.
+     - Provide your support email.
+     - You don't need to provide a logo for the OAuth consent screen.
+
+5. **Obtain Client ID and Client Secret:**
+   - After completing the configuration, you'll receive your Client ID and Client Secret.
+
+   ![image](https://github.com/MilanCommunity/Milan-Backend/assets/98630752/1ce0705e-ff95-4c9c-9686-806ee08f9351)
+
+6. **Final Steps:**
+   - Update your application's `.env` file with the obtained Client ID and Client Secret.
+
+   ```env
+   CLIENT_ID="your-client-id"
+   CLIENT_SECRET="your-client-secret"
+
+
 
 ### Setting up `razorpay api key` for `.env`
 - Head on to [Razorpay API reference](https://razorpay.com/docs/api) and Sign Up to razor pay remember you don't need to KYC. 
