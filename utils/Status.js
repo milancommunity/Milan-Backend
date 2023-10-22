@@ -41,6 +41,12 @@ const STATUSMESSAGE = {
   NOT_FOUND: "Not found !",
   EVENT_SLUG_ALREADY_EXISTS: "Event slug already exists",
   CREATE_EVENT_FAILED: "Failed to create event",
+  PRODUCT_SLUG_ALREADY_EXISTS: "productSlug already exists",
+  PRODUCT_ADD_FAILED: "Failed to add product",
+  PRODUCT_FETCH_FAILED: "Failed to fetch products",
+  PRODUCT_NOT_FOUND: "Product not found",
+  PASSWORD_UPDATE_SUCCESS: "Password Updated Successfully",
+  TOO_MANY_REQUESTS: "You have already reported a problem in the last 2 hours.",
 };
 
 module.exports = { STATUSCODE, STATUSMESSAGE };

@@ -3,7 +3,7 @@ const User = require("../../schema/user/UserSchema");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const ReportProblem = require("../../schema/user/ReportProblemSchema");
-const { STATUSCODE } = require("../../utils/Status");
+const { STATUSCODE, STATUSMESSAGE } = require("../../utils/Status");
 
 // Route 1 - Update User details
 router.post("/update", async (req, res) => {
@@ -11,7 +11,9 @@ router.post("/update", async (req, res) => {
     const { email, oldPassword, newPassword } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(STATUSCODE.NOT_FOUND)
+        .json({ message: STATUSMESSAGE.USER_NOT_FOUND });
     }
     // User Exists in the database
     const validPassword = await bcrypt.compare(
@@ -20,7 +22,9 @@ router.post("/update", async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res
+        .status(STATUSCODE.UNAUTHORIZED)
+        .json({ message: STATUSMESSAGE.INVALID_CREDENTIALS });
     }
     // Old Password Mathched
     if (newPassword.length < 5) {
@@ -44,12 +48,14 @@ router.post("/update", async (req, res) => {
     };
 
     await User.replaceOne({ email: email }, UserData);
-    res.status(201).json({ message: "Password Updated Successfully" });
+    res
+      .status(STATUSCODE.CREATED)
+      .json({ message: STATUSMESSAGE.PASSWORD_UPDATE_SUCCESS });
   } catch (error) {
     // User Password Updated
     res
       .status(STATUSCODE.INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal Server Error" });
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -67,9 +73,9 @@ router.post("/report", async (req, res) => {
       ).getMinutes();
 
       if (hourOfThisReport >= currentHour - 120) {
-        return res.status(429).json({
+        return res.status(STATUSCODE.TOO_MANY_REQUESTS).json({
           success: false,
-          message: "You have already reported a problem in the last 2 hours.",
+          message: STATUSMESSAGE.TOO_MANY_REQUESTS,
         });
       }
     }
@@ -84,11 +90,11 @@ router.post("/report", async (req, res) => {
     });
 
     await ReportData.save();
-    res.status(200).json({ success: true });
+    res.status(STATUSCODE.OK).json({ success: true });
   } catch (e) {
     res
       .status(STATUSCODE.INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal Server Error" });
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -96,7 +102,7 @@ router.get("/", async (req, res) => {
   try {
     if (req.query.slug) {
       const userdetails = await User.findOne({ slug: req.query.slug });
-      return res.status(200).json(userdetails);
+      return res.status(STATUSCODE.OK).json(userdetails);
     }
 
     const users = await User.find({
@@ -105,7 +111,9 @@ router.get("/", async (req, res) => {
 
     res.json(users);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(STATUSCODE.INTERNAL_SERVER_ERROR)
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 

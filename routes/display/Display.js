@@ -2,7 +2,7 @@
 
 const express = require("express");
 const User = require("../../schema/user/UserSchema");
-const { STATUSCODE } = require("../../utils/Status");
+const { STATUSCODE, STATUSMESSAGE } = require("../../utils/Status");
 const router = express.Router();
 
 // Route 1  - Show all avaialble Users in the DB
@@ -11,7 +11,9 @@ router.get("/users", async (req, res) => {
     const allusers = await User.find({});
     res.status(STATUSCODE.OK).json(allusers);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(STATUSCODE.INTERNAL_SERVER_ERROR)
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -21,7 +23,9 @@ router.get("/clubs", async (req, res) => {
     const allClubs = await User.find({ usertype: "club" });
     res.json(allClubs);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(STATUSCODE.INTERNAL_SERVER_ERROR)
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 

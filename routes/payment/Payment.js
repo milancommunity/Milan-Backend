@@ -3,6 +3,7 @@ const router = express.Router();
 
 const shortid = require("shortid");
 const Razorpay = require("razorpay");
+const { STATUSCODE, STATUSMESSAGE } = require("../../utils/Status");
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -24,13 +25,15 @@ router.post("/razorpay", async (req, res) => {
 
   try {
     const response = await razorpay.orders.create(options);
-    return res.status(200).json({
+    return res.status(STATUSCODE.OK).json({
       id: response.id,
       currency: response.currency,
       amount: response.amount,
     });
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(STATUSCODE.INTERNAL_SERVER_ERROR)
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 

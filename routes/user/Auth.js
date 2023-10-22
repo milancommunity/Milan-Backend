@@ -40,18 +40,22 @@ router.post("/signin", async (req, res) => {
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(STATUSCODE.NOT_FOUND)
+        .json({ message: STATUSMESSAGE.USER_NOT_FOUND });
     }
     const validPassword = await bcrypt.compare(password, existingUser.password);
     if (!validPassword) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res
+        .status(STATUSCODE.UNAUTHORIZED)
+        .json({ message: STATUSMESSAGE.INVALID_CREDENTIALS });
     }
 
     const payload = { User: { id: existingUser.email } };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
     res
-      .status(201)
+      .status(STATUSCODE.CREATED)
       .cookie("Token", token, {
         sameSite: "none",
         httpOnly: true,
@@ -81,7 +85,7 @@ router.post("/signin", async (req, res) => {
       })
 
       .json({
-        message: "Logged you in !",
+        message: STATUSMESSAGE.LOGIN_SUCCESS,
       });
   } catch (err) {
     res.status(STATUSCODE.INTERNAL_SERVER_ERROR).json({ message: err });
@@ -94,7 +98,9 @@ router.post("/update", async (req, res) => {
     const { email, oldPassword, newPassword } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(STATUSCODE.NOT_FOUND)
+        .json({ message: STATUSMESSAGE.USER_NOT_FOUND });
     }
     // User Exists in the database
     const validPassword = await bcrypt.compare(
@@ -103,7 +109,9 @@ router.post("/update", async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res
+        .status(STATUSCODE.UNAUTHORIZED)
+        .json({ message: STATUSMESSAGE.USER_NOT_FOUND });
     }
     // Old Password Mathched
     if (newPassword.length < 5) {
@@ -127,12 +135,14 @@ router.post("/update", async (req, res) => {
     };
 
     await User.replaceOne({ email: email }, UserData);
-    res.status(201).json({ message: "Password Updated Successfully" });
+    res
+      .status(STATUSCODE.CREATED)
+      .json({ message: STATUSMESSAGE.PASSWORD_UPDATE_SUCCESS });
   } catch (error) {
     // User Password Updated
     res
       .status(STATUSCODE.INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal Server Error" });
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
   }
 });
 
