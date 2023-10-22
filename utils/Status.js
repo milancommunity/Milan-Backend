@@ -39,7 +39,7 @@ const STATUSMESSAGE = {
   UNAUTHORIZED: "Unauthorized !",
   FORBIDDEN: "Forbidden !",
   NOT_FOUND: "Not found !",
-  EVENT_SLUG_ALREADY_EXISTS: "Event slug already exists",
+  EVENT_NOT_FOUND: "Event not found !",
   CREATE_EVENT_FAILED: "Failed to create event",
 };
 

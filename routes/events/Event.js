@@ -4,6 +4,28 @@ const Event = require("../../schema/events/EventSchema");
 const { STATUSCODE, STATUSMESSAGE } = require("../../utils/Status");
 const { setTime } = require("../../utils/SetTime");
 
+router.get("/", async (req, res) => {
+  try {
+    if (req.query.slug) {
+      const eventDetails = await Event.findOne({ slug: req.query.slug });
+
+      if (eventDetails) {
+        return res.status(STATUSCODE.OK).json(eventDetails);
+      }
+      return res
+        .status(STATUSCODE.NOT_FOUND)
+        .json({ message: STATUSMESSAGE.NOT_FOUND });
+    }
+
+    const allEvents = await Event.find({});
+    res.status(STATUSCODE.OK).json(allEvents);
+  } catch (error) {
+    return res
+      .status(STATUSCODE.INTERNAL_SERVER_ERROR)
+      .json({ message: STATUSMESSAGE.INTERNAL_SERVER_ERROR });
+  }
+});
+
 router.post("/create", async (req, res) => {
   try {
     const { slug, ...data } = req.body;
