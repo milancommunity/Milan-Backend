@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     }
 
     const clubs = await User.find({
-      usertype: "club",
+      userType: "club",
     });
 
     res.json(clubs);

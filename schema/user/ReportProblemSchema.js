@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const ReportProblemSchema = mongoose.Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
       required: true,
     },
-    lastname: {
+    lastName: {
       type: String,
       required: true,
     },
@@ -14,7 +14,7 @@ const ReportProblemSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    reportmessage: {
+    reportMessage: {
       type: String,
       required: true,
     },

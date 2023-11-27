@@ -18,7 +18,7 @@ router.get("/users", async (req, res) => {
 // * Route 2 - Show all available Clubs in the DB
 router.get("/clubs", async (req, res) => {
   try {
-    const allClubs = await User.find({ usertype: "club" });
+    const allClubs = await User.find({ userType: "club" });
     res.json(allClubs);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
