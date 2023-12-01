@@ -12,7 +12,7 @@
   "author": "Tamal Das",
   "license": "ISC",
   "dependencies": {
-    "@commitlint/cli": "^17.6.1",
+    "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^17.6.1",
     "@geoapify/geocoder-autocomplete": "^1.5.1",
     "@geoapify/react-geocoder-autocomplete": "^1.5.0",
