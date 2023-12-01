@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@commitlint/cli": "^17.6.1",
-    "@commitlint/config-conventional": "^17.6.1",
+    "@commitlint/config-conventional": "^18.4.3",
     "@geoapify/geocoder-autocomplete": "^1.5.1",
     "@geoapify/react-geocoder-autocomplete": "^1.5.0",
     "bcryptjs": "^2.4.3",
