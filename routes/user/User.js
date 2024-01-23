@@ -39,8 +39,8 @@ router.post("/update", async (req, res) => {
 
     // Updated User
     const UserData = {
-      firstname: existingUser.firstname,
-      lastname: existingUser.lastname,
+      firstName: existingUser.firstName,
+      lastName: existingUser.lastName,
       email: email,
       password: newHashedPassword,
       address: existingUser.address,
@@ -83,10 +83,10 @@ router.post("/report", async (req, res) => {
     const data = req.body;
 
     const ReportData = ReportProblem({
-      firstname: data.firstname,
-      lastname: data.lastname,
+      firstName: data.firstname,
+      lastName: data.lastname,
       email: data.email,
-      reportmessage: data.reportmessage,
+      reportMessage: data.reportmessage,
     });
 
     await ReportData.save();
@@ -106,7 +106,7 @@ router.get("/", async (req, res) => {
     }
 
     const users = await User.find({
-      usertype: "individual",
+      userType: "individual",
     });
 
     res.json(users);

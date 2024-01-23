@@ -76,7 +76,7 @@ router.post("/signin", async (req, res) => {
         sameSite: "none",
         domain: process.env.ORIGIN_DOMAIN,
       })
-      .cookie("usertype", existingUser.usertype, {
+      .cookie("usertype", existingUser.userType, {
         httpOnly: false,
         expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         secure: true,
@@ -126,8 +126,8 @@ router.post("/update", async (req, res) => {
 
     // Updated User
     const UserData = {
-      firstname: existingUser.firstname,
-      lastname: existingUser.lastname,
+      firstName: existingUser.firstName,
+      lastName: existingUser.lastName,
       email: email,
       password: newHashedPassword,
       address: existingUser.address,
@@ -180,7 +180,7 @@ router.get(
           // This is a new account, update usertype
           await User.create({
             email: user.email,
-            usertype: usertype,
+            userType: usertype,
           });
         }
         res
